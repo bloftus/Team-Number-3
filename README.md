@@ -3,13 +3,13 @@ Group Number 3
 
 Team Members
 ------------
-Brian Loftus
-Sean Thompson
-Kevin Broyles
-Shawn Broyles
+[Brian Loftus](https://github.com/notlofty)  
+[Sean Thompson](https://github.com/sthompson64)  
+[Kevin Broyles](https://github.com/KevinBroyles)  
+[Shawn Broyles](https://github.com/ShawnBroyles)
 
-Github
-------
+Github Repository
+-----------------
 https://github.com/notlofty/Team-Number-3
 
 Organization
@@ -21,5 +21,5 @@ The group will divide the classes/features between the members for each project.
 
 Work Procedures
 ---------------
-We will use the Gitflow workflow to pattern how we create our branches.
+We will use the Gitflow workflow to pattern how we create our branches.  
 Files will be encoded in UTF-8 and Windows' line endings will be used.
