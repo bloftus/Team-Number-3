@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class AdminView {
 
@@ -21,7 +23,7 @@ public class AdminView {
 	private JLabel txtFileName;
 	private JLabel txtStatus;
 	private JButton btnResetWindows;
-	private JTable table;
+	private JTable tblFiles;
 
 	/**
 	 * Launch the application.
@@ -73,7 +75,7 @@ public class AdminView {
 				//Method to be added when btnRemoveSelectedFiles is clicked.
 			}
 		});
-		btnRemoveSelectedFiles.setBounds(253, 344, 151, 23);
+		btnRemoveSelectedFiles.setBounds(243, 344, 170, 23);
 		frmFileSearchSystem.getContentPane().add(btnRemoveSelectedFiles);
 		
 		JButton btnRebuild = new JButton("Rebuild");
@@ -83,7 +85,7 @@ public class AdminView {
 				//Method to be added when btnRebuild is clicked.
 			}
 		});
-		btnRebuild.setBounds(139, 344, 89, 23);
+		btnRebuild.setBounds(140, 344, 80, 23);
 		frmFileSearchSystem.getContentPane().add(btnRebuild);
 		
 		JButton btnAddFile = new JButton("Add File...");
@@ -93,7 +95,7 @@ public class AdminView {
 				//Method to be added when btnAddFile is clicked.
 			}
 		});
-		btnAddFile.setBounds(25, 344, 89, 23);
+		btnAddFile.setBounds(25, 344, 95, 23);
 		frmFileSearchSystem.getContentPane().add(btnAddFile);
 		
 		btnResetWindows = new JButton("Reset Windows");
@@ -103,29 +105,30 @@ public class AdminView {
 				//Method to be added when btnResetWindows is clicked.
 			}
 		});
-		btnResetWindows.setBounds(33, 375, 107, 23);
+		btnResetWindows.setBounds(25, 378, 140, 23);
 		frmFileSearchSystem.getContentPane().add(btnResetWindows);
 		
 		JLabel lblNumberOfFiles = new JLabel("Number of files indexed: 0");
-		lblNumberOfFiles.setBounds(150, 378, 146, 14);
+		lblNumberOfFiles.setBounds(175, 382, 186, 14);
 		frmFileSearchSystem.getContentPane().add(lblNumberOfFiles);
 		
 		JLabel lblVersion = new JLabel("version 0.1");
 		lblVersion.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblVersion.setBounds(346, 384, 75, 14);
+		lblVersion.setBounds(365, 406, 75, 14);
 		frmFileSearchSystem.getContentPane().add(lblVersion);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		tblFiles = new JTable();
+		tblFiles.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
 				"File Name", "Status"
 			}
 		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(125);
-		table.getColumnModel().getColumn(1).setPreferredWidth(91);
-		table.setBounds(10, 42, 412, 291);
-		frmFileSearchSystem.getContentPane().add(table);
+		tblFiles.getColumnModel().getColumn(0).setPreferredWidth(125);
+		tblFiles.getColumnModel().getColumn(1).setPreferredWidth(91);
+		tblFiles.setBounds(10, 42, 412, 291);
+		frmFileSearchSystem.getContentPane().add(tblFiles);
+		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tblFiles, btnAddFile, btnRebuild, btnRemoveSelectedFiles, btnResetWindows}));
 	}
 }
