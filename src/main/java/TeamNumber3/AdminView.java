@@ -26,25 +26,14 @@ public class AdminView {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AdminView window = new AdminView();
-					window.frmFileSearchSystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		
 	}
-
 	/**
 	 * Create the application.
 	 */
 	public AdminView() {
 		initialize();
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
