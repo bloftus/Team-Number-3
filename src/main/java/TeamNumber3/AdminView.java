@@ -20,6 +20,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AdminView {
 
@@ -84,18 +86,38 @@ public class AdminView {
 		frame.getContentPane().add(txtStatus);
 		
 		JButton btnRemoveSelectedFiles = new JButton("Remove Selected Files");
-		btnRemoveSelectedFiles.setBounds(301, 344, 89, 23);
+		btnRemoveSelectedFiles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//Method to be added when btnRemoveSelectedFiles is clicked.
+			}
+		});
+		btnRemoveSelectedFiles.setBounds(253, 344, 151, 23);
 		frame.getContentPane().add(btnRemoveSelectedFiles);
 		
 		JButton btnRebuild = new JButton("Rebuild");
-		btnRebuild.setBounds(171, 344, 89, 23);
+		btnRebuild.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//Method to be added when btnRebuild is clicked.
+			}
+		});
+		btnRebuild.setBounds(139, 344, 89, 23);
 		frame.getContentPane().add(btnRebuild);
 		
 		JButton btnAddFile = new JButton("Add File...");
-		btnAddFile.setBounds(41, 344, 89, 23);
+		btnAddFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//Method to be added when btnAddFile is clicked.
+			}
+		});
+		btnAddFile.setBounds(25, 344, 89, 23);
 		frame.getContentPane().add(btnAddFile);
 		
 		btnResetWindows = new JButton("Reset Windows");
+		btnResetWindows.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//Method to be added when btnResetWindows is clicked.
+			}
+		});
 		btnResetWindows.setBounds(33, 375, 107, 23);
 		frame.getContentPane().add(btnResetWindows);
 		
