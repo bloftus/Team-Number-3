@@ -5,4 +5,29 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Class Project</name>
   <description>Search Engine for Text Files</description>
+  
+  <url>https://github.com/notlofty/Team-Number-3</url>
+   
+  <licenses>
+     <license>
+       <name>GPLv3</name>
+       <url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
+     </license>
+  </licenses>  
+ 
+  <properties>
+     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     <maven.compiler.source>1.8</maven.compiler.source>
+     <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>  
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+       
 </project>
