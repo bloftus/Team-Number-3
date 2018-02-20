@@ -16,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.MatteBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 public class MainView {
 
@@ -61,6 +62,7 @@ public class MainView {
 		textField.setColumns(10);
 		
 		JButton btnSearch = new JButton("Search");
+		btnSearch.setMnemonic(KeyEvent.VK_S);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "Not yet implemented!");
@@ -68,6 +70,7 @@ public class MainView {
 		});
 		
 		JButton btnMaintenance = new JButton("Maintenance");
+		btnMaintenance.setMnemonic(KeyEvent.VK_M);
 		btnMaintenance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				EventQueue.invokeLater(new Runnable() {
@@ -84,6 +87,7 @@ public class MainView {
 		});
 		
 		JButton btnAbout = new JButton("About");
+		btnAbout.setMnemonic(KeyEvent.VK_A);
 		btnAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "Search Engine Project Version 0.1\nContributors:\nBrian Loftus\nKevin Broyles\nSean Thompson\nShawn Broyles");

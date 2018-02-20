@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -66,6 +67,7 @@ public class AdminView {
 		frmFileSearchSystem.getContentPane().add(txtStatus);
 		
 		JButton btnRemoveSelectedFiles = new JButton("Remove Selected Files");
+		btnRemoveSelectedFiles.setMnemonic(KeyEvent.VK_R);
 		btnRemoveSelectedFiles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Method to be added when btnRemoveSelectedFiles is clicked.
@@ -75,6 +77,7 @@ public class AdminView {
 		frmFileSearchSystem.getContentPane().add(btnRemoveSelectedFiles);
 		
 		JButton btnRebuild = new JButton("Rebuild");
+		btnRebuild.setMnemonic(KeyEvent.VK_B);
 		btnRebuild.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Method to be added when btnRebuild is clicked.
@@ -84,6 +87,7 @@ public class AdminView {
 		frmFileSearchSystem.getContentPane().add(btnRebuild);
 		
 		JButton btnAddFile = new JButton("Add File...");
+		btnAddFile.setMnemonic(KeyEvent.VK_A);
 		btnAddFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Method to be added when btnAddFile is clicked.
@@ -93,6 +97,7 @@ public class AdminView {
 		frmFileSearchSystem.getContentPane().add(btnAddFile);
 		
 		btnResetWindows = new JButton("Reset Windows");
+		btnResetWindows.setMnemonic(KeyEvent.VK_W);
 		btnResetWindows.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Method to be added when btnResetWindows is clicked.
