@@ -15,6 +15,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import javax.swing.UIManager;
+import javax.swing.border.MatteBorder;
 
 public class AdminView {
 
@@ -44,7 +46,7 @@ public class AdminView {
 		frmFileSearchSystem = new JFrame();
 		frmFileSearchSystem.setTitle("File Search System");
 		frmFileSearchSystem.setResizable(false);
-		frmFileSearchSystem.getContentPane().setBackground(Color.WHITE);
+		frmFileSearchSystem.getContentPane().setBackground(UIManager.getColor("Button.background"));
 		frmFileSearchSystem.setBounds(100, 100, 448, 448);
 		frmFileSearchSystem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmFileSearchSystem.getContentPane().setLayout(null);
@@ -118,6 +120,7 @@ public class AdminView {
 		frmFileSearchSystem.getContentPane().add(lblVersion);
 		
 		tblFiles = new JTable();
+		tblFiles.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		tblFiles.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -129,6 +132,6 @@ public class AdminView {
 		tblFiles.getColumnModel().getColumn(1).setPreferredWidth(91);
 		tblFiles.setBounds(10, 42, 412, 291);
 		frmFileSearchSystem.getContentPane().add(tblFiles);
-		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tblFiles, btnAddFile, btnRebuild, btnRemoveSelectedFiles, btnResetWindows}));
+		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnAddFile, btnRebuild, btnRemoveSelectedFiles, btnResetWindows}));
 	}
 }
