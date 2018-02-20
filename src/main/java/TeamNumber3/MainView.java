@@ -64,6 +64,7 @@ public class MainView {
 		txtSearchBar.setColumns(10);
 		
 		JButton btnSearch = new JButton("Search");
+		btnSearch.setToolTipText("Search for text in the indexed files");
 		btnSearch.setMnemonic(KeyEvent.VK_S);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -72,6 +73,7 @@ public class MainView {
 		});
 		
 		JButton btnMaintenance = new JButton("Maintenance");
+		btnMaintenance.setToolTipText("Display the maintenace window");
 		btnMaintenance.setMnemonic(KeyEvent.VK_M);
 		btnMaintenance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -89,6 +91,7 @@ public class MainView {
 		});
 		
 		JButton btnAbout = new JButton("About");
+		btnAbout.setToolTipText("About File Search System");
 		btnAbout.setMnemonic(KeyEvent.VK_A);
 		btnAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

@@ -13,10 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 public class AdminView {
 
@@ -71,6 +71,7 @@ public class AdminView {
 		frmFileSearchSystem.getContentPane().add(txtStatus);
 		
 		JButton btnRemoveSelectedFiles = new JButton("Remove Selected Files");
+		btnRemoveSelectedFiles.setToolTipText("Remove files that are selected in the table");
 		btnRemoveSelectedFiles.setMnemonic(KeyEvent.VK_R);
 		btnRemoveSelectedFiles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -81,6 +82,7 @@ public class AdminView {
 		frmFileSearchSystem.getContentPane().add(btnRemoveSelectedFiles);
 		
 		JButton btnRebuild = new JButton("Rebuild");
+		btnRebuild.setToolTipText("Re-index modified files");
 		btnRebuild.setMnemonic(KeyEvent.VK_B);
 		btnRebuild.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -91,6 +93,7 @@ public class AdminView {
 		frmFileSearchSystem.getContentPane().add(btnRebuild);
 		
 		JButton btnAddFile = new JButton("Add File...");
+		btnAddFile.setToolTipText("Add files to be indexed");
 		btnAddFile.setMnemonic(KeyEvent.VK_A);
 		btnAddFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -101,6 +104,7 @@ public class AdminView {
 		frmFileSearchSystem.getContentPane().add(btnAddFile);
 		
 		btnResetWindows = new JButton("Reset Windows");
+		btnResetWindows.setToolTipText("Reset both windows to their defaults");
 		btnResetWindows.setMnemonic(KeyEvent.VK_W);
 		btnResetWindows.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
