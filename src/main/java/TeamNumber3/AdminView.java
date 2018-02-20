@@ -24,7 +24,7 @@ public class AdminView {
 
 	/**
 	 * Launch the application.
-	 */
+	 
 	public static void main(String[] args) {
 		
 	}
