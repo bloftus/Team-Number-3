@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class AdminView {
 
-	private JFrame frmFileSearchSystem;
+	JFrame frmFileSearchSystem;
 	private JLabel txtSearchHeading;
 	private JLabel txtFileName;
 	private JLabel txtStatus;
@@ -54,7 +54,7 @@ public class AdminView {
 		frmFileSearchSystem.setResizable(false);
 		frmFileSearchSystem.getContentPane().setBackground(Color.WHITE);
 		frmFileSearchSystem.setBounds(100, 100, 448, 448);
-		frmFileSearchSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmFileSearchSystem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmFileSearchSystem.getContentPane().setLayout(null);
 		
 		txtSearchHeading = new JLabel();
