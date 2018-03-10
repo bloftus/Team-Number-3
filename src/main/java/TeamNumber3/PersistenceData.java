@@ -1,6 +1,6 @@
 package TeamNumber3;
 
-public class PersistenceData {
+class PersistenceData {
 	
 	void addFileToIndex () {
 		

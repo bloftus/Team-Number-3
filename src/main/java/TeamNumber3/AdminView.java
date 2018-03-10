@@ -6,12 +6,12 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.*;
 
 public class AdminView {
 
@@ -87,6 +87,14 @@ public class AdminView {
 		btnAddFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Method to be added when btnAddFile is clicked.
+				JFileChooser fileChooser = new JFileChooser( "." );
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt");
+				fileChooser.setFileFilter(filter);
+				int status = fileChooser.showOpenDialog( null );
+				if ( status == JFileChooser.APPROVE_OPTION ) { 
+					File selectedFile = fileChooser.getSelectedFile();
+					lblNumberOfFiles.setText(selectedFile.getName());
+					}
 			}
 		});
 		btnAddFile.setBounds(25, 344, 89, 23);
