@@ -93,7 +93,13 @@ public class AdminView {
 				int status = fileChooser.showOpenDialog( null );
 				if ( status == JFileChooser.APPROVE_OPTION ) { 
 					File selectedFile = fileChooser.getSelectedFile();
-					lblNumberOfFiles.setText(selectedFile.getName());
+					persistenceFile pf = new persistenceFile();
+					pf.name = selectedFile.getName();
+					pf.filepath = selectedFile.getAbsolutePath();
+					pf.dateModified = selectedFile.lastModified();
+					pf.fileNumber = 0;
+					
+					
 					}
 			}
 		});
