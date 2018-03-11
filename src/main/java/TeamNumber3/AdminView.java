@@ -88,9 +88,9 @@ public class AdminView {
 			public void actionPerformed(ActionEvent arg0) {
 				//Method to be added when btnAddFile is clicked.
 				JFileChooser fileChooser = new JFileChooser( "." );
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt");
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
 				fileChooser.setFileFilter(filter);
-				int status = fileChooser.showOpenDialog( null );
+				int status = fileChooser.showOpenDialog( frmFileSearchSystem );
 				if ( status == JFileChooser.APPROVE_OPTION ) { 
 					File selectedFile = fileChooser.getSelectedFile();
 					persistenceFile pf = new persistenceFile();
