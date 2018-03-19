@@ -1,0 +1,39 @@
+File Search System
+Version 1.0
+
+The index file 
+
+An example of what the index could look like:
+{
+    "name": "File Search System",
+    "version": "0.1",
+    "indexedFiles": 3,
+    "data":
+        {
+            "files":
+                [
+                    { "id": 0, "path": "C:\Temp\a.txt", "modified": 1520012345678 },
+                    { "id": 1, "path": "C:\Temp\b.txt", "modified": 1520020034433 },
+                    { "id": 2, "path": "C:\Temp\hello.txt", "modified": 1520039999999 }
+                ],
+            "words":
+                [
+                    { 
+                        "word": "apple", 
+                        "location": 
+                            [
+                                { "file": 0, "location": [0, 3, 4, 52, 113] },
+                                { "file": 1, "location": [3, 5, 92] }
+                            ]
+                    },
+                    { 
+                        "word": "orange", 
+                        "location": 
+                            [
+                                { "file": 1, "location": [7, 9] },
+                                { "file": 2, "location": [1, 12, 20] }
+                            ]
+                    }
+                ]
+        }
+}
