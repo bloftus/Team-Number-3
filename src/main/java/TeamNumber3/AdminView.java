@@ -7,12 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.*;
 import java.awt.Component;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
@@ -98,6 +98,20 @@ public class AdminView {
 		btnAddFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Method to be added when btnAddFile is clicked.
+				JFileChooser fileChooser = new JFileChooser( "." );
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+				fileChooser.setFileFilter(filter);
+				int status = fileChooser.showOpenDialog( frmFileSearchSystem );
+				if ( status == JFileChooser.APPROVE_OPTION ) { 
+					File selectedFile = fileChooser.getSelectedFile();
+					persistenceFile pf = new persistenceFile();
+					pf.name = selectedFile.getName();
+					pf.filepath = selectedFile.getAbsolutePath();
+					pf.dateModified = selectedFile.lastModified();
+					pf.fileNumber = 0;
+					
+					
+					}
 			}
 		});
 		btnAddFile.setBounds(25, 344, 95, 23);
