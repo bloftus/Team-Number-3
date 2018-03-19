@@ -16,11 +16,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.MatteBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class MainView {
 
 	private JFrame frmFileSearchSystem;
-	private JTextField textField;
+	private JTextField txtSearchBar;
 
 	/**
 	 * Launch the application.
@@ -57,10 +60,12 @@ public class MainView {
 		JLabel lblSearch = new JLabel("File Search System");
 		lblSearch.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtSearchBar = new JTextField();
+		txtSearchBar.setColumns(10);
 		
 		JButton btnSearch = new JButton("Search");
+		btnSearch.setToolTipText("Search for text in the indexed files");
+		btnSearch.setMnemonic(KeyEvent.VK_S);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "Not yet implemented!");
@@ -68,6 +73,8 @@ public class MainView {
 		});
 		
 		JButton btnMaintenance = new JButton("Maintenance");
+		btnMaintenance.setToolTipText("Display the maintenace window");
+		btnMaintenance.setMnemonic(KeyEvent.VK_M);
 		btnMaintenance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				EventQueue.invokeLater(new Runnable() {
@@ -84,21 +91,23 @@ public class MainView {
 		});
 		
 		JButton btnAbout = new JButton("About");
+		btnAbout.setToolTipText("About File Search System");
+		btnAbout.setMnemonic(KeyEvent.VK_A);
 		btnAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "Search Engine Project Version 0.1\nContributors:\nBrian Loftus\nKevin Broyles\nSean Thompson\nShawn Broyles");
 			}
 		});
 		
-		JList list = new JList();
-		list.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		JList lstOutput = new JList();
+		lstOutput.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		GroupLayout groupLayout = new GroupLayout(frmFileSearchSystem.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(list, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+						.addComponent(lstOutput, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
 						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addComponent(btnMaintenance)
 							.addPreferredGap(ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
@@ -106,7 +115,7 @@ public class MainView {
 							.addGap(143)
 							.addComponent(btnAbout))
 						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(textField, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+							.addComponent(txtSearchBar, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
 							.addGap(22)
 							.addComponent(btnSearch)))
 					.addContainerGap())
@@ -122,12 +131,13 @@ public class MainView {
 						.addComponent(lblSearch, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtSearchBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnSearch))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(list, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+					.addComponent(lstOutput, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		frmFileSearchSystem.getContentPane().setLayout(groupLayout);
+		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnMaintenance, btnAbout, txtSearchBar, btnSearch, lstOutput}));
 	}
 }
