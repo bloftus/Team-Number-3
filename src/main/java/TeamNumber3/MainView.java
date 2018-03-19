@@ -53,6 +53,7 @@ public class MainView {
 	 */
 	private void initialize() {
 		frmFileSearchSystem = new JFrame();
+		frmFileSearchSystem.setResizable(false);
 		frmFileSearchSystem.setTitle("File Search System");
 		frmFileSearchSystem.setBounds(100, 100, 600, 400);
 		frmFileSearchSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,7 +96,7 @@ public class MainView {
 		btnAbout.setMnemonic(KeyEvent.VK_A);
 		btnAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Search Engine Project Version 0.1\nContributors:\nBrian Loftus\nKevin Broyles\nSean Thompson\nShawn Broyles");
+				JOptionPane.showMessageDialog(null, "File Search System Version 0.2\nContributors:\nBrian Loftus\nSean Thompson\nKevin Broyles\nShawn Broyles");
 			}
 		});
 		

@@ -132,7 +132,7 @@ public class AdminView {
 		lblNumberOfFiles.setBounds(175, 382, 186, 14);
 		frmFileSearchSystem.getContentPane().add(lblNumberOfFiles);
 		
-		JLabel lblVersion = new JLabel("version 0.1");
+		JLabel lblVersion = new JLabel("version 0.2");
 		lblVersion.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVersion.setBounds(365, 406, 75, 14);
 		frmFileSearchSystem.getContentPane().add(lblVersion);
