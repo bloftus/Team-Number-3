@@ -1,7 +1,19 @@
 File Search System
 Version 1.0
 
-The index file 
+The file FSSIndex.json is located in your "user.home" directory and contains 
+all of the information for the indexed files. It is created from JSONObjects 
+and JSONArrays from the json-simple-1.1.jar package. It is encoded in UTF-8
+and has Windows line endings.
+
+Each file indexed has id, path, and modified values. The id is the unique 
+identifier for each file, the path is the absolute path for each file, and 
+modified is a long value that represents the time that a file was last modified. 
+
+Each word indexed has at least one location in one file. Words can be present in 
+multiple places in multiple files. The file that a word is located in is 
+identified by its unique identifier. Unique identifiers and word positions both
+start at zero.
 
 An example of what the index could look like:
 {
