@@ -50,10 +50,11 @@ public class MainView {
 						/*
 						System.out.println(PersistenceData.getFiles());
 						System.out.println(PersistenceData.getWords());
+						*/
 						
 						PersistenceData.getFileData("C:\\Temp\\NonexistantFile.txt");
 						PersistenceData.getFileData("C:\\Temp\\hello.txt");
-						*/
+						
 					}
 					
 					
