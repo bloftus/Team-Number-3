@@ -16,6 +16,7 @@ class persistenceFile {
 		File discFile = new File(filepath);
 		if(dateModified >= discFile.lastModified())
 			return true;
+		
 		else
 			return false;
 	}
