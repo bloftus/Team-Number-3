@@ -28,6 +28,7 @@ public class MainView {
 
 	private JFrame frmFileSearchSystem;
 	private JTextField txtSearchBar;
+	AdminView window2 = new AdminView();
 
 	/**
 	 * Launch the application.
@@ -105,7 +106,7 @@ public class MainView {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							AdminView window2 = new AdminView();
+
 							window2.frmFileSearchSystem.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
