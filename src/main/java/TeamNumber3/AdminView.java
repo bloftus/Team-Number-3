@@ -14,11 +14,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.util.List;
-
 import javax.swing.SwingUtilities;
+import javax.swing.table.*;
 import javax.swing.filechooser.*;
 import java.awt.Component;
-import javax.swing.UIManager;
+
 import javax.swing.border.MatteBorder;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
@@ -32,12 +32,10 @@ public class AdminView {
 	private JTable tblFiles;
 	private List<persistenceFile> listOfFiles;
 	private int numOfFiles;
-	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
-		
-	}
+	private JTable tblFiles = new JTable(new DefaultTableModel(new Object[] {"File Name", "Location"}, 0));
+	private DefaultTableModel tblData = (DefaultTableModel) tblFiles.getModel();
+	private JLabel lblNumberOfFiles;
+
 	/**
 	 * Create the application.
 	 */
@@ -117,6 +115,11 @@ public class AdminView {
 					numOfFiles++;
 					pf.fileNumber = numOfFiles;
 					listOfFiles.add(pf);
+					PersistenceData.addFileToIndex(pf);
+					Object[] row = {pf.name, pf.filepath};
+					tblData.addRow(row);
+					lblNumberOfFiles.setText("Number of files indexed: " + PersistenceData.getNumFilesIndexed());
+					
 					}
 			}
 		});
@@ -134,24 +137,17 @@ public class AdminView {
 		btnResetWindows.setBounds(25, 378, 140, 23);
 		frmFileSearchSystem.getContentPane().add(btnResetWindows);
 		
-		JLabel lblNumberOfFiles = new JLabel("Number of files indexed: 0");
+		lblNumberOfFiles = new JLabel("Number of files indexed: " + PersistenceData.getNumFilesIndexed());
 		lblNumberOfFiles.setBounds(175, 382, 186, 14);
 		frmFileSearchSystem.getContentPane().add(lblNumberOfFiles);
 		
-		JLabel lblVersion = new JLabel("version 0.1");
+		JLabel lblVersion = new JLabel("version 0.2");
 		lblVersion.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVersion.setBounds(365, 406, 75, 14);
 		frmFileSearchSystem.getContentPane().add(lblVersion);
 		
-		tblFiles = new JTable();
+		
 		tblFiles.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		tblFiles.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"File Name", "Status"
-			}
-		));
 		tblFiles.getColumnModel().getColumn(0).setPreferredWidth(125);
 		tblFiles.getColumnModel().getColumn(1).setPreferredWidth(91);
 		tblFiles.setBounds(10, 42, 412, 291);
