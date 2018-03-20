@@ -94,7 +94,7 @@ class PersistenceData {
 			for(int i = 0; i < dataFiles.size(); i++) {
 				String filePath = (String) ((JSONObject) dataFiles.get(i)).get("path");
 				// Checking if the file is in the index
-				if (filePath == path) {
+				if (filePath.equals(path)) {
 					file = (JSONObject) dataFiles.get(i);
 					retObj = file;
 				}
