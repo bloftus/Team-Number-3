@@ -11,10 +11,10 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
-import javax.swing.SwingUtilities;
+import javax.swing.table.*;
 import javax.swing.filechooser.*;
 import java.awt.Component;
-import javax.swing.UIManager;
+
 import javax.swing.border.MatteBorder;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
@@ -25,15 +25,10 @@ public class AdminView {
 	private JLabel txtFileName;
 	private JLabel txtStatus;
 	private JButton btnResetWindows;
-	private JTable tblFiles;
+	private JTable tblFiles = new JTable(new DefaultTableModel(new Object[] {"File Name", "Location"}, 0));
+	private DefaultTableModel tblData = (DefaultTableModel) tblFiles.getModel();
 	private JLabel lblNumberOfFiles;
 
-	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
-		
-	}
 	/**
 	 * Create the application.
 	 */
@@ -110,6 +105,8 @@ public class AdminView {
 					pf.filepath = selectedFile.getAbsolutePath();
 					pf.dateModified = selectedFile.lastModified();
 					PersistenceData.addFileToIndex(pf);
+					Object[] row = {pf.name, pf.filepath};
+					tblData.addRow(row);
 					lblNumberOfFiles.setText("Number of files indexed: " + PersistenceData.getNumFilesIndexed());
 					
 					}
@@ -138,15 +135,8 @@ public class AdminView {
 		lblVersion.setBounds(365, 406, 75, 14);
 		frmFileSearchSystem.getContentPane().add(lblVersion);
 		
-		tblFiles = new JTable();
+		
 		tblFiles.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		tblFiles.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"File Name", "Status"
-			}
-		));
 		tblFiles.getColumnModel().getColumn(0).setPreferredWidth(125);
 		tblFiles.getColumnModel().getColumn(1).setPreferredWidth(91);
 		tblFiles.setBounds(10, 42, 412, 291);

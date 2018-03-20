@@ -126,7 +126,9 @@ class PersistenceData {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	void writeIndexToFile () {
-		
+		index.put("File name", indexFileName);
+		index.put("File path", indexPath);
 	}
 }
