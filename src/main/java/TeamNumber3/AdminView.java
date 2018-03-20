@@ -129,7 +129,7 @@ public class AdminView {
 		btnResetWindows.setBounds(25, 378, 140, 23);
 		frmFileSearchSystem.getContentPane().add(btnResetWindows);
 		
-		lblNumberOfFiles = new JLabel("Number of files indexed: 0");
+		lblNumberOfFiles = new JLabel("Number of files indexed: " + PersistenceData.getNumFilesIndexed());
 		lblNumberOfFiles.setBounds(175, 382, 186, 14);
 		frmFileSearchSystem.getContentPane().add(lblNumberOfFiles);
 		

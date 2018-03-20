@@ -38,6 +38,25 @@ public class MainView {
 				try {
 					MainView window = new MainView();
 					window.frmFileSearchSystem.setVisible(true);
+					
+					JSONObject index = PersistenceData.getIndex();
+					
+					if (index != null) {
+						PersistenceData.setFilesIndexed((long) index.get("indexedFiles"));
+						System.out.println(index.get("name"));
+						System.out.println(index.get("version"));
+						System.out.println(index.get("indexedFiles"));
+						
+						/*
+						System.out.println(PersistenceData.getFiles());
+						System.out.println(PersistenceData.getWords());
+						
+						PersistenceData.getFileData("C:\\Temp\\NonexistantFile.txt");
+						PersistenceData.getFileData("C:\\Temp\\hello.txt");
+						*/
+					}
+					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
