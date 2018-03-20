@@ -1,5 +1,7 @@
 package TeamNumber3;
 
+import java.io.File;
+
 class persistenceFile {
 	public String name;
 	public String filepath;
@@ -8,5 +10,14 @@ class persistenceFile {
 	
 	public persistenceFile() {
 		
+	}
+	
+	public boolean isUpToDate() {
+		File discFile = new File(filepath);
+		if(dateModified >= discFile.lastModified())
+			return true;
+		
+		else
+			return false;
 	}
 }
