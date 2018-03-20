@@ -1,3 +1,5 @@
+// Program by Brian Loftus, Sean Thompson, Kevin Broyles, and Shawn Broyles
+
 package TeamNumber3;
 
 import java.awt.Color;
@@ -17,6 +19,8 @@ import javax.swing.border.MatteBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.List;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import java.io.FileWriter;
@@ -28,7 +32,9 @@ public class MainView {
 
 	private JFrame frmFileSearchSystem;
 	private JTextField txtSearchBar;
-	AdminView window2 = new AdminView();
+	private static List<persistenceFile> listOfFiles;
+  
+	// AdminView window2 = new AdminView();
 
 	/**
 	 * Launch the application.
@@ -106,7 +112,7 @@ public class MainView {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-
+							AdminView window2 = new AdminView(listOfFiles);
 							window2.frmFileSearchSystem.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -165,5 +171,9 @@ public class MainView {
 		);
 		frmFileSearchSystem.getContentPane().setLayout(groupLayout);
 		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnMaintenance, btnAbout, txtSearchBar, btnSearch, lstOutput}));
+	}
+	
+	static void receiveList(List<persistenceFile> updatedList) {
+		listOfFiles = updatedList;
 	}
 }

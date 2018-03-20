@@ -1,3 +1,5 @@
+// Program by Brian Loftus, Sean Thompson, Kevin Broyles, and Shawn Broyles
+
 package TeamNumber3;
 
 import java.awt.Color;
@@ -6,11 +8,15 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
+import java.util.List;
+import javax.swing.SwingUtilities;
 import javax.swing.table.*;
 import javax.swing.filechooser.*;
 import java.awt.Component;
@@ -25,6 +31,9 @@ public class AdminView {
 	private JLabel txtFileName;
 	private JLabel txtStatus;
 	private JButton btnResetWindows;
+	// private JTable tblFiles;
+	private List<persistenceFile> listOfFiles;
+	private int numOfFiles;
 	private JTable tblFiles = new JTable(new DefaultTableModel(new Object[] {"File Name", "Location"}, 0));
 	private DefaultTableModel tblData = (DefaultTableModel) tblFiles.getModel();
 	private JLabel lblNumberOfFiles;
@@ -32,7 +41,8 @@ public class AdminView {
 	/**
 	 * Create the application.
 	 */
-	public AdminView() {
+	public AdminView(List<persistenceFile> newListOfFiles) {
+		listOfFiles = newListOfFiles;
 		initialize();
 	}
 	/**
@@ -104,6 +114,9 @@ public class AdminView {
 					pf.name = selectedFile.getName();
 					pf.filepath = selectedFile.getAbsolutePath();
 					pf.dateModified = selectedFile.lastModified();
+					numOfFiles++;
+					pf.fileNumber = numOfFiles;
+					// listOfFiles.add(pf);
 					PersistenceData.addFileToIndex(pf);
 					Object[] row = {pf.name, pf.filepath};
 					tblData.addRow(row);
@@ -140,7 +153,18 @@ public class AdminView {
 		tblFiles.getColumnModel().getColumn(0).setPreferredWidth(125);
 		tblFiles.getColumnModel().getColumn(1).setPreferredWidth(91);
 		tblFiles.setBounds(10, 42, 412, 291);
+		
 		frmFileSearchSystem.getContentPane().add(tblFiles);
 		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnAddFile, btnRebuild, btnRemoveSelectedFiles, btnResetWindows}));
+	
+		frmFileSearchSystem.addWindowListener(new WindowAdapter()
+		{
+		    public void windowClosing(WindowEvent e)
+		    {
+		        MainView.receiveList(listOfFiles);
+		    }
+		});
 	}
+	
+	
 }
