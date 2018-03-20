@@ -19,6 +19,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class MainView {
 
@@ -34,6 +38,25 @@ public class MainView {
 				try {
 					MainView window = new MainView();
 					window.frmFileSearchSystem.setVisible(true);
+					
+					JSONObject index = PersistenceData.getIndex();
+					
+					if (index != null) {
+						PersistenceData.setFilesIndexed((long) index.get("indexedFiles"));
+						System.out.println(index.get("name"));
+						System.out.println(index.get("version"));
+						System.out.println(index.get("indexedFiles"));
+						
+						/*
+						System.out.println(PersistenceData.getFiles());
+						System.out.println(PersistenceData.getWords());
+						
+						PersistenceData.getFileData("C:\\Temp\\NonexistantFile.txt");
+						PersistenceData.getFileData("C:\\Temp\\hello.txt");
+						*/
+					}
+					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,6 +76,7 @@ public class MainView {
 	 */
 	private void initialize() {
 		frmFileSearchSystem = new JFrame();
+		frmFileSearchSystem.setResizable(false);
 		frmFileSearchSystem.setTitle("File Search System");
 		frmFileSearchSystem.setBounds(100, 100, 600, 400);
 		frmFileSearchSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,7 +119,7 @@ public class MainView {
 		btnAbout.setMnemonic(KeyEvent.VK_A);
 		btnAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Search Engine Project Version 0.1\nContributors:\nBrian Loftus\nKevin Broyles\nSean Thompson\nShawn Broyles");
+				JOptionPane.showMessageDialog(null, "File Search System Version 0.2\nContributors:\nBrian Loftus\nSean Thompson\nKevin Broyles\nShawn Broyles");
 			}
 		});
 		

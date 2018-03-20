@@ -26,6 +26,7 @@ public class AdminView {
 	private JLabel txtStatus;
 	private JButton btnResetWindows;
 	private JTable tblFiles;
+	private JLabel lblNumberOfFiles;
 
 	/**
 	 * Launch the application.
@@ -108,8 +109,8 @@ public class AdminView {
 					pf.name = selectedFile.getName();
 					pf.filepath = selectedFile.getAbsolutePath();
 					pf.dateModified = selectedFile.lastModified();
-					pf.fileNumber = 0;
-					
+					PersistenceData.addFileToIndex(pf);
+					lblNumberOfFiles.setText("Number of files indexed: " + PersistenceData.getNumFilesIndexed());
 					
 					}
 			}
@@ -128,11 +129,11 @@ public class AdminView {
 		btnResetWindows.setBounds(25, 378, 140, 23);
 		frmFileSearchSystem.getContentPane().add(btnResetWindows);
 		
-		JLabel lblNumberOfFiles = new JLabel("Number of files indexed: 0");
+		lblNumberOfFiles = new JLabel("Number of files indexed: " + PersistenceData.getNumFilesIndexed());
 		lblNumberOfFiles.setBounds(175, 382, 186, 14);
 		frmFileSearchSystem.getContentPane().add(lblNumberOfFiles);
 		
-		JLabel lblVersion = new JLabel("version 0.1");
+		JLabel lblVersion = new JLabel("version 0.2");
 		lblVersion.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVersion.setBounds(365, 406, 75, 14);
 		frmFileSearchSystem.getContentPane().add(lblVersion);
