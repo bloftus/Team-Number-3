@@ -1,3 +1,5 @@
+// Program by Brian Loftus, Sean Thompson, Kevin Broyles, and Shawn Broyles
+
 package TeamNumber3;
 
 import java.awt.Color;
@@ -32,7 +34,7 @@ public class MainView {
 	private JTextField txtSearchBar;
 	private static List<persistenceFile> listOfFiles;
   
-	AdminView window2 = new AdminView();
+	// AdminView window2 = new AdminView();
 
 	/**
 	 * Launch the application.

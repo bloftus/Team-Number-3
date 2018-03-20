@@ -1,3 +1,5 @@
+// Program by Brian Loftus, Sean Thompson, Kevin Broyles, and Shawn Broyles
+
 package TeamNumber3;
 
 import java.awt.Color;
@@ -29,7 +31,7 @@ public class AdminView {
 	private JLabel txtFileName;
 	private JLabel txtStatus;
 	private JButton btnResetWindows;
-	private JTable tblFiles;
+	// private JTable tblFiles;
 	private List<persistenceFile> listOfFiles;
 	private int numOfFiles;
 	private JTable tblFiles = new JTable(new DefaultTableModel(new Object[] {"File Name", "Location"}, 0));
@@ -114,7 +116,7 @@ public class AdminView {
 					pf.dateModified = selectedFile.lastModified();
 					numOfFiles++;
 					pf.fileNumber = numOfFiles;
-					listOfFiles.add(pf);
+					// listOfFiles.add(pf);
 					PersistenceData.addFileToIndex(pf);
 					Object[] row = {pf.name, pf.filepath};
 					tblData.addRow(row);

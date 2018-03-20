@@ -1,3 +1,5 @@
+// Program by Brian Loftus, Sean Thompson, Kevin Broyles, and Shawn Broyles
+
 package TeamNumber3;
 
 import java.io.File;
