@@ -4,6 +4,9 @@ package TeamNumber3;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.List;
+import java.util.ArrayList;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,12 +18,27 @@ class PersistenceData {
 	private static String indexFileName = "FSSIndex.json";
 	private static String indexPath = System.getProperty("user.home") + 
 			File.separator + indexFileName;
-	private static File indexFile = new File(indexPath);
+	private static File indexFile = new File(getIndexPath());
 	private static JSONArray dataFiles = null;
 	private static JSONArray dataWords = null;
+	private static List<persistenceFile> listOfFiles = new ArrayList<persistenceFile>();
 	
-	public static void setFilesIndexed(long num) {
-		filesIndexed = (int) num;
+	public static List<persistenceFile> getListOfFiles() {
+		return listOfFiles;
+	}
+	
+	static int getNumFilesIndexed() {
+		return filesIndexed;
+	}
+	
+	static void updateNumFilesIndexed() {
+		filesIndexed = getListOfFiles().size();
+	}
+	
+	public static void addToListOfFiles(persistenceFile pf) {
+		pf.fileNumber = getNumFilesIndexed();
+		listOfFiles.add(pf);
+		updateNumFilesIndexed();
 	}
 	
 	public static JSONObject getIndex() {
@@ -32,7 +50,7 @@ class PersistenceData {
 				System.out.println("Index file exists!");
 				JSONParser parser = new JSONParser();
 				// Reading from the index file
-				try (FileReader read = new FileReader(indexPath)) {
+				try (FileReader read = new FileReader(getIndexPath())) {
 					Object obj = parser.parse(read);
 					index = (JSONObject) obj;
 					retObj = index;
@@ -43,7 +61,7 @@ class PersistenceData {
 				// Index file doesn't exist
 				// The code that calls on this function should check if 
 				//   the returned JSONObject is null before doing stuff 
-				System.out.println(indexPath + " was not found.");
+				System.out.println(getIndexPath() + " was not found.");
 			}
 		} else {
 			retObj = index;
@@ -83,54 +101,29 @@ class PersistenceData {
 		return retArr;
 	}
 	
-	static int getNumFilesIndexed() {
-		return filesIndexed;
-	}
-	
-	static JSONObject getFileData(String path) {
+	static void readIndexFromFile () {
 		// Checking if a file already exists in the index
-		JSONObject retObj = null;
 		if (getFiles() != null) {
-			JSONObject file = null;
 			// Looping through the dataFiles list
 			for(int i = 0; i < dataFiles.size(); i++) {
-				String filePath = (String) ((JSONObject) dataFiles.get(i)).get("path");
-				// Checking if the file is in the index
-				if (filePath.equals(path)) {
-					file = (JSONObject) dataFiles.get(i);
-					retObj = file;
-				}
+				JSONObject file = (JSONObject) dataFiles.get(i);
+				String filePath = (String) file.get("path");
+				long fileModified = (long) file.get("modified");
+				// Creating a new persistenceFile object for the file
+				persistenceFile pf = new persistenceFile();
+				pf.filepath = filePath;
+				pf.dateModified = fileModified;
+				addToListOfFiles(pf);
 			}
-			System.out.println(path + " is indexed?: " + (file != null));
 		}
-		return retObj;
 	}
 	
-	static void addFileToIndex (persistenceFile pf) {
-		pf.fileNumber = filesIndexed;
-		filesIndexed++;
+	static void writeIndexToFile () {
+		
+	}
 
+	public static String getIndexPath() {
+		return indexPath;
 	}
 	
-	void removeFileFromIndex () {
-		
-	}
-	
-	void checkFilesStatuses () {
-		
-	}
-	
-	void searchIndex () {
-		
-	}
-	
-	void readIndexFromFile () {
-		
-	}
-	
-	@SuppressWarnings("unchecked")
-	void writeIndexToFile () {
-		index.put("File name", indexFileName);
-		index.put("File path", indexPath);
-	}
 }

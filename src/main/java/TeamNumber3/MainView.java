@@ -32,7 +32,6 @@ public class MainView {
 
 	private JFrame frmFileSearchSystem;
 	private JTextField txtSearchBar;
-	private static List<persistenceFile> listOfFiles;
   
 	// AdminView window2 = new AdminView();
 
@@ -46,25 +45,15 @@ public class MainView {
 					MainView window = new MainView();
 					window.frmFileSearchSystem.setVisible(true);
 					
+					PersistenceData.readIndexFromFile();
+					
 					JSONObject index = PersistenceData.getIndex();
 					
 					if (index != null) {
-						PersistenceData.setFilesIndexed((long) index.get("indexedFiles"));
 						System.out.println(index.get("name"));
 						System.out.println(index.get("version"));
 						System.out.println(index.get("indexedFiles"));
-						
-						/*
-						System.out.println(PersistenceData.getFiles());
-						System.out.println(PersistenceData.getWords());
-						*/
-						
-						PersistenceData.getFileData("C:\\Temp\\NonexistantFile.txt");
-						PersistenceData.getFileData("C:\\Temp\\hello.txt");
-						
 					}
-					
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -112,7 +101,7 @@ public class MainView {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							AdminView window2 = new AdminView(listOfFiles);
+							AdminView window2 = new AdminView();
 							window2.frmFileSearchSystem.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -171,9 +160,5 @@ public class MainView {
 		);
 		frmFileSearchSystem.getContentPane().setLayout(groupLayout);
 		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnMaintenance, btnAbout, txtSearchBar, btnSearch, lstOutput}));
-	}
-	
-	static void receiveList(List<persistenceFile> updatedList) {
-		listOfFiles = updatedList;
 	}
 }
