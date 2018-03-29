@@ -157,7 +157,7 @@ public class AdminView {
 		{
 		    public void windowClosing(WindowEvent e)
 		    {
-		        
+		    	PersistenceData.writeIndexToFile();
 		    }
 		});
 	}
