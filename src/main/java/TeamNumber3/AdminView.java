@@ -19,6 +19,7 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 import javax.swing.table.*;
 import javax.swing.filechooser.*;
+import javax.swing.JOptionPane;
 import java.awt.Component;
 
 import javax.swing.border.MatteBorder;
@@ -105,20 +106,37 @@ public class AdminView {
 			public void actionPerformed(ActionEvent arg0) {
 				//Method to be added when btnAddFile is clicked.
 				JFileChooser fileChooser = new JFileChooser( "." );
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text", "json", "c", "cs", "cpp", "h", "vb", "lua", "java", "cbl", "bat", "htm", "html", "xml");
 				fileChooser.setFileFilter(filter);
 				int status = fileChooser.showOpenDialog( frmFileSearchSystem );
 				if ( status == JFileChooser.APPROVE_OPTION ) { 
+					Boolean fileAlreadyIndexed = false;
+					String errorTitle = "Error";
+					String errorAlreadyIndexed = "Unable to index file. \nThe file selected is already indexed.";
+					String errorIndexFileSelected = "Unable to index file. \nThe file selected is the index file.";
 					File selectedFile = fileChooser.getSelectedFile();
-					persistenceFile pf = new persistenceFile();
-					pf.filepath = selectedFile.getAbsolutePath();
-					pf.dateModified = selectedFile.lastModified();
-					PersistenceData.addToListOfFiles(pf);
-					Object[] row = {pf.filepath, pf.getFileStatus()};
-					tblData.addRow(row);
-					lblNumberOfFiles.setText("Number of files indexed: " + PersistenceData.getNumFilesIndexed());
-					
+					// Checking the list of files for the file selected
+					for ( persistenceFile pf : PersistenceData.getListOfFiles()) 
+						if (pf.filepath.equals(selectedFile.getAbsolutePath())) 
+							fileAlreadyIndexed = true;
+					// Outputting an error message to the user if the file is already indexed
+					// or if the file selected is the index file. Otherwise indexing the file
+					if (fileAlreadyIndexed) 
+						JOptionPane.showMessageDialog(null, errorAlreadyIndexed, errorTitle, JOptionPane.WARNING_MESSAGE);
+					else if (selectedFile.getAbsolutePath().equals(PersistenceData.getIndexPath()))
+						JOptionPane.showMessageDialog(null, errorIndexFileSelected, errorTitle, JOptionPane.WARNING_MESSAGE);
+					else {
+						// Indexing the file selected
+						persistenceFile pf = new persistenceFile();
+						pf.filepath = selectedFile.getAbsolutePath();
+						pf.dateModified = selectedFile.lastModified();
+						PersistenceData.addToListOfFiles(pf);
+						Object[] row = {pf.filepath, pf.getFileStatus()};
+						tblData.addRow(row);
+						lblNumberOfFiles.setText("Number of files indexed: " + PersistenceData.getNumFilesIndexed());
+						
 					}
+				}
 			}
 		});
 		btnAddFile.setBounds(25, 344, 95, 23);

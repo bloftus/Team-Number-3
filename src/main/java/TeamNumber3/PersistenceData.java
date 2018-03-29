@@ -18,7 +18,7 @@ class PersistenceData {
 	private static String indexFileName = "FSSIndex.json";
 	private static String indexPath = System.getProperty("user.home") + 
 			File.separator + indexFileName;
-	private static File indexFile = new File(indexPath);
+	private static File indexFile = new File(getIndexPath());
 	private static JSONArray dataFiles = null;
 	private static JSONArray dataWords = null;
 	private static List<persistenceFile> listOfFiles = new ArrayList<persistenceFile>();
@@ -50,7 +50,7 @@ class PersistenceData {
 				System.out.println("Index file exists!");
 				JSONParser parser = new JSONParser();
 				// Reading from the index file
-				try (FileReader read = new FileReader(indexPath)) {
+				try (FileReader read = new FileReader(getIndexPath())) {
 					Object obj = parser.parse(read);
 					index = (JSONObject) obj;
 					retObj = index;
@@ -61,7 +61,7 @@ class PersistenceData {
 				// Index file doesn't exist
 				// The code that calls on this function should check if 
 				//   the returned JSONObject is null before doing stuff 
-				System.out.println(indexPath + " was not found.");
+				System.out.println(getIndexPath() + " was not found.");
 			}
 		} else {
 			retObj = index;
@@ -120,6 +120,10 @@ class PersistenceData {
 	
 	static void writeIndexToFile () {
 		
+	}
+
+	public static String getIndexPath() {
+		return indexPath;
 	}
 	
 }
