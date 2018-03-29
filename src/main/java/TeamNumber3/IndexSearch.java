@@ -84,4 +84,46 @@ public class IndexSearch {
 			// display the files in the foundFiles array to the user in some way...
 		}
 	}
+	
+	public void phraseSearch(String userInput) {
+		
+		String[ ] words = userInput.split(" ");
+		
+		Set<Pair> newPossibleSets = new HashSet<>();
+		
+		if(wordMap.containsKey(words[0])) {
+			for(Pair wordLoc : wordMap.get(words[0])) {
+				newPossibleSets.add(wordLoc);
+			}
+		}
+		
+		for(int i = 1; i < words.length; ++i) {
+			
+			Set<Pair> oldPossibleSets = new HashSet<>();
+			oldPossibleSets.addAll(newPossibleSets);
+			newPossibleSets.clear();
+			
+			if(wordMap.containsKey(words[i])) {
+				for(Pair possibleSet : oldPossibleSets) {
+					
+					for(Pair wordLoc : wordMap.get(words[i])) {
+						if(wordLoc.getFileNum() == possibleSet.getFileNum() && wordLoc.getPositionNum() == possibleSet.getPositionNum() + 1) {
+							newPossibleSets.add(wordLoc);
+							break;
+						}
+					}
+					
+				}
+			} else {
+				newPossibleSets.clear();
+			}
+		}
+		
+		if(newPossibleSets.size() == 0) {
+			// display no files found to the user in some way...
+		} else {
+			// display the files in the foundFiles array to the user in some way...
+		}
+	}
 }
+ 
