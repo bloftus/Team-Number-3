@@ -3,6 +3,7 @@
 package TeamNumber3;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,40 @@ public class IndexSearch {
 				for(Pair wordLoc : wordMap.get(word)) {
 					foundFiles.add(wordLoc.getFileNum());
 				}
+			}
+		}
+		
+		if(foundFiles.size() == 0) {
+			// display no files found to the user in some way...
+		} else {
+			// display the files in the foundFiles array to the user in some way...
+		}
+	}
+	
+	public void andSearch(String userInput) {
+		
+		String[ ] words = userInput.split(" ");
+		
+		Set<Integer> foundFiles = new HashSet<>(Arrays.asList(1, 2, 3, 4));
+		
+		for(String word : words) {
+			if (wordMap.containsKey(word)) {
+				boolean found = false;
+			
+				for(int fileNum : foundFiles) {
+					for(Pair wordLoc : wordMap.get(word)) {
+						if(wordLoc.getFileNum() == fileNum) {
+							found = true;
+						}
+					}
+					if(!found) {
+						foundFiles.remove(fileNum);
+					}
+				}
+			
+			} else {
+				// word not found in any file so search returns nothing.
+				foundFiles.clear();
 			}
 		}
 		
