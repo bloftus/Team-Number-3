@@ -27,12 +27,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class MainView {
 
 	private JFrame frmFileSearchSystem;
 	private JTextField txtSearchBar;
-  
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+    private JRadioButton rdbtnOr;
+    private JRadioButton rdbtnAnd;
+    private JRadioButton rdbtnPhrase;
 	// AdminView window2 = new AdminView();
 
 	/**
@@ -75,7 +80,7 @@ public class MainView {
 		frmFileSearchSystem = new JFrame();
 		frmFileSearchSystem.setResizable(false);
 		frmFileSearchSystem.setTitle("File Search System");
-		frmFileSearchSystem.setBounds(100, 100, 600, 400);
+		frmFileSearchSystem.setBounds(100, 100, 598, 442);
 		frmFileSearchSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblSearch = new JLabel("File Search System");
@@ -89,7 +94,13 @@ public class MainView {
 		btnSearch.setMnemonic(KeyEvent.VK_S);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Not yet implemented!");
+				if(rdbtnOr.isSelected()) {
+					IndexSearch.orSearch(txtSearchBar.getText(), wordMap);
+				} else if(rdbtnAnd.isSelected()) {
+					IndexSearch.andSearch(txtSearchBar.getText(), wordMap);
+				} else if(rdbtnPhrase.isSelected() ) {
+					IndexSearch.phraseSearch(txtSearchBar.getText(), wordMap);
+				}
 			}
 		});
 		
@@ -122,21 +133,37 @@ public class MainView {
 		
 		JList lstOutput = new JList();
 		lstOutput.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		
+		JRadioButton rdbtnOr = new JRadioButton("OR");
+		buttonGroup.add(rdbtnOr);
+		rdbtnOr.setSelected(true);
+		
+		JRadioButton rdbtnAnd = new JRadioButton("AND");
+		buttonGroup.add(rdbtnAnd);
+		
+		JRadioButton rdbtnSearch = new JRadioButton("SEARCH");
+		buttonGroup.add(rdbtnSearch);
 		GroupLayout groupLayout = new GroupLayout(frmFileSearchSystem.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lstOutput, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(rdbtnOr)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(rdbtnAnd)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(rdbtnSearch))
+						.addComponent(lstOutput, GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnMaintenance)
-							.addPreferredGap(ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
 							.addComponent(lblSearch)
 							.addGap(143)
 							.addComponent(btnAbout))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(txtSearchBar, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(txtSearchBar, GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
 							.addGap(22)
 							.addComponent(btnSearch)))
 					.addContainerGap())
@@ -154,8 +181,13 @@ public class MainView {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtSearchBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnSearch))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lstOutput, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(rdbtnOr)
+						.addComponent(rdbtnAnd)
+						.addComponent(rdbtnSearch))
+					.addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+					.addComponent(lstOutput, GroupLayout.PREFERRED_SIZE, 288, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		frmFileSearchSystem.getContentPane().setLayout(groupLayout);
