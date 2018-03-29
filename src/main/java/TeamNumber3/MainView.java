@@ -35,7 +35,9 @@ public class MainView {
 	private JFrame frmFileSearchSystem;
 	private JTextField txtSearchBar;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-  
+    private JRadioButton rdbtnOr;
+    private JRadioButton rdbtnAnd;
+    private JRadioButton rdbtnPhrase;
 	// AdminView window2 = new AdminView();
 
 	/**
@@ -92,11 +94,11 @@ public class MainView {
 		btnSearch.setMnemonic(KeyEvent.VK_S);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(rdbtnOr.getSelected) {
+				if(rdbtnOr.isSelected()) {
 					IndexSearch.orSearch(txtSearchBar.getText(), wordMap);
-				} else if(rdbtnAnd.getSelected) {
+				} else if(rdbtnAnd.isSelected()) {
 					IndexSearch.andSearch(txtSearchBar.getText(), wordMap);
-				} else if(rdbtnPhrase.getSelected ) {
+				} else if(rdbtnPhrase.isSelected() ) {
 					IndexSearch.phraseSearch(txtSearchBar.getText(), wordMap);
 				}
 			}
