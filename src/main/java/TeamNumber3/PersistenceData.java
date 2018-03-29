@@ -2,15 +2,16 @@
 
 package TeamNumber3;
 
-import java.io.File;
-import java.io.FileReader;
+
+import java.io.*;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 class PersistenceData {
 	private static int filesIndexed = 0;
@@ -21,10 +22,15 @@ class PersistenceData {
 	private static File indexFile = new File(getIndexPath());
 	private static JSONArray dataFiles = null;
 	private static JSONArray dataWords = null;
-	private static List<persistenceFile> listOfFiles = new ArrayList<persistenceFile>();
+	private static List<persistenceFile> listOfFiles = new ArrayList<>();
+	private static Map<String, List<Pair>> wordMap;
 	
 	public static List<persistenceFile> getListOfFiles() {
 		return listOfFiles;
+	}
+	
+	public static Map<String, List<Pair>> getWordMap() {
+		return wordMap;
 	}
 	
 	static int getNumFilesIndexed() {
@@ -36,9 +42,12 @@ class PersistenceData {
 	}
 	
 	public static void addToListOfFiles(persistenceFile pf) {
+		File file = new File(pf.filepath);
 		pf.fileNumber = getNumFilesIndexed();
 		listOfFiles.add(pf);
 		updateNumFilesIndexed();
+		
+		// indexNewFile(pf.filepath, pf.fileNumber);
 	}
 	
 	public static JSONObject getIndex() {
@@ -114,6 +123,39 @@ class PersistenceData {
 				pf.filepath = filePath;
 				pf.dateModified = fileModified;
 				addToListOfFiles(pf);
+			}
+		}
+	}
+	
+	public static void indexNewFile(String filePath, int fileNumber) {
+		// Reading a file
+		Scanner scanner = null;
+		File file = new File(filePath);
+		int wordPosition = 0;
+		try {
+			scanner = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		// Reading a line from the file
+		while (scanner.hasNextLine()) {
+			Scanner scanner2 = new Scanner(scanner.nextLine());
+			// Reading the next word from the file
+			while (scanner2.hasNext()) {
+				String word = scanner2.next();
+				// Making a new pair for the word's position in the file
+				Pair p = new Pair(fileNumber, wordPosition);
+				List<Pair> wordList = new ArrayList<>();
+				// Checking if the word is already indexed in other positions
+				try {
+					wordList = wordMap.get(word);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// Adding the word to the index
+				wordList.add(p);
+				wordMap.put(word, wordList);
+				wordPosition++;
 			}
 		}
 	}
