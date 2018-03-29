@@ -92,7 +92,13 @@ public class MainView {
 		btnSearch.setMnemonic(KeyEvent.VK_S);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Not yet implemented!");
+				if(rdbtnOr.getSelected) {
+					IndexSearch.orSearch(txtSearchBar.getText(), wordMap);
+				} else if(rdbtnAnd.getSelected) {
+					IndexSearch.andSearch(txtSearchBar.getText(), wordMap);
+				} else if(rdbtnPhrase.getSelected ) {
+					IndexSearch.phraseSearch(txtSearchBar.getText(), wordMap);
+				}
 			}
 		});
 		

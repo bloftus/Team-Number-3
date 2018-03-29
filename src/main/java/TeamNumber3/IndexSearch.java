@@ -11,9 +11,9 @@ import java.util.Set;
 
 public class IndexSearch {
 	
-	Map<String, List<Pair>> wordMap;
+	//Map<String, List<Pair>> wordMap;
 	
-	public void fillWordMap() {
+	/*public void fillWordMap() {
 		
 		//test data for now
 		Pair p1 = new Pair(1, 4);
@@ -27,9 +27,9 @@ public class IndexSearch {
 		wordMap.put("is", testlist);
 		wordMap.put("fun", testlist);
 		
-	}
+	} */
 	
-	public void orSearch(String userInput) {
+	public static void orSearch(String userInput, Map<String, List<Pair>> wordMap) {
 		
 		String[ ] words = userInput.split(" ");
 		
@@ -51,7 +51,7 @@ public class IndexSearch {
 		}
 	}
 	
-	public void andSearch(String userInput) {
+	public static void andSearch(String userInput, Map<String, List<Pair>> wordMap) {
 		
 		String[ ] words = userInput.split(" ");
 		
@@ -85,7 +85,7 @@ public class IndexSearch {
 		}
 	}
 	
-	public void phraseSearch(String userInput) {
+	public static void phraseSearch(String userInput, Map<String, List<Pair>> wordMap) {
 		
 		String[ ] words = userInput.split(" ");
 		
