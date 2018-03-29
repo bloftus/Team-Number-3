@@ -5,7 +5,6 @@ package TeamNumber3;
 import java.io.File;
 
 class persistenceFile {
-	public String name;
 	public String filepath;
 	public long dateModified;
 	public int fileNumber;
@@ -14,12 +13,14 @@ class persistenceFile {
 		
 	}
 	
-	public boolean isUpToDate() {
+	public String getFileStatus() {
+		String success = "Indexed";
+		String failure = "File changed";
 		File discFile = new File(filepath);
-		if(dateModified >= discFile.lastModified())
-			return true;
+		if(dateModified == discFile.lastModified())
+			return success;
 		
 		else
-			return false;
+			return failure;
 	}
 }

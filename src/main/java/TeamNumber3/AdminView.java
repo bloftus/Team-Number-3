@@ -31,9 +31,6 @@ public class AdminView {
 	private JLabel txtFileName;
 	private JLabel txtStatus;
 	private JButton btnResetWindows;
-	// private JTable tblFiles;
-	private List<persistenceFile> listOfFiles;
-	private int numOfFiles;
 	private JTable tblFiles = new JTable(new DefaultTableModel(new Object[] {"File Name", "Location"}, 0));
 	private DefaultTableModel tblData = (DefaultTableModel) tblFiles.getModel();
 	private JLabel lblNumberOfFiles;
@@ -41,14 +38,17 @@ public class AdminView {
 	/**
 	 * Create the application.
 	 */
-	public AdminView(List<persistenceFile> newListOfFiles) {
-		listOfFiles = newListOfFiles;
+	public AdminView() {
 		initialize();
 	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		for (persistenceFile pf : PersistenceData.getListOfFiles()) {
+			Object[] row = {pf.filepath, pf.getFileStatus()};
+			tblData.addRow(row);
+		}
 		frmFileSearchSystem = new JFrame();
 		frmFileSearchSystem.setTitle("File Search System");
 		frmFileSearchSystem.setResizable(false);
@@ -67,7 +67,7 @@ public class AdminView {
 		txtFileName = new JLabel();
 		txtFileName.setBounds(0, 23, 220, 20);
 		txtFileName.setHorizontalAlignment(SwingConstants.CENTER);
-		txtFileName.setText("File Name");
+		txtFileName.setText("File Path");
 		frmFileSearchSystem.getContentPane().add(txtFileName);
 		
 		txtStatus = new JLabel();
@@ -111,14 +111,10 @@ public class AdminView {
 				if ( status == JFileChooser.APPROVE_OPTION ) { 
 					File selectedFile = fileChooser.getSelectedFile();
 					persistenceFile pf = new persistenceFile();
-					pf.name = selectedFile.getName();
 					pf.filepath = selectedFile.getAbsolutePath();
 					pf.dateModified = selectedFile.lastModified();
-					numOfFiles++;
-					pf.fileNumber = numOfFiles;
-					// listOfFiles.add(pf);
-					PersistenceData.addFileToIndex(pf);
-					Object[] row = {pf.name, pf.filepath};
+					PersistenceData.addToListOfFiles(pf);
+					Object[] row = {pf.filepath, pf.getFileStatus()};
 					tblData.addRow(row);
 					lblNumberOfFiles.setText("Number of files indexed: " + PersistenceData.getNumFilesIndexed());
 					
@@ -161,7 +157,7 @@ public class AdminView {
 		{
 		    public void windowClosing(WindowEvent e)
 		    {
-		        MainView.receiveList(listOfFiles);
+		        
 		    }
 		});
 	}
