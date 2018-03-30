@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
@@ -38,6 +39,7 @@ public class MainView {
     private JRadioButton rdbtnOr;
     private JRadioButton rdbtnAnd;
     private JRadioButton rdbtnPhrase;
+    private Map<String, List<Pair>> wordMap = PersistenceData.getWordMap();
 	// AdminView window2 = new AdminView();
 
 	/**
@@ -124,7 +126,7 @@ public class MainView {
 		
 		JButton btnAbout = new JButton("About");
 		btnAbout.setToolTipText("About File Search System");
-		btnAbout.setMnemonic(KeyEvent.VK_A);
+		btnAbout.setMnemonic(KeyEvent.VK_B);
 		btnAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "File Search System Version 0.2\nContributors:\nBrian Loftus\nSean Thompson\nKevin Broyles\nShawn Broyles");
@@ -135,14 +137,17 @@ public class MainView {
 		lstOutput.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		
 		JRadioButton rdbtnOr = new JRadioButton("OR");
+		rdbtnOr.setMnemonic(KeyEvent.VK_O);
 		buttonGroup.add(rdbtnOr);
 		rdbtnOr.setSelected(true);
 		
 		JRadioButton rdbtnAnd = new JRadioButton("AND");
+		rdbtnAnd.setMnemonic(KeyEvent.VK_A);
 		buttonGroup.add(rdbtnAnd);
 		
-		JRadioButton rdbtnSearch = new JRadioButton("SEARCH");
-		buttonGroup.add(rdbtnSearch);
+		JRadioButton rdbtnPhrase = new JRadioButton("PHRASE");
+		rdbtnPhrase.setMnemonic(KeyEvent.VK_P);
+		buttonGroup.add(rdbtnPhrase);
 		GroupLayout groupLayout = new GroupLayout(frmFileSearchSystem.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -154,7 +159,7 @@ public class MainView {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(rdbtnAnd)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(rdbtnSearch))
+							.addComponent(rdbtnPhrase))
 						.addComponent(lstOutput, GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnMaintenance)
@@ -185,12 +190,12 @@ public class MainView {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(rdbtnOr)
 						.addComponent(rdbtnAnd)
-						.addComponent(rdbtnSearch))
+						.addComponent(rdbtnPhrase))
 					.addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
 					.addComponent(lstOutput, GroupLayout.PREFERRED_SIZE, 288, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		frmFileSearchSystem.getContentPane().setLayout(groupLayout);
-		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnMaintenance, btnAbout, txtSearchBar, btnSearch, lstOutput}));
+		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnMaintenance, btnAbout, txtSearchBar, btnSearch, rdbtnOr, rdbtnAnd, rdbtnPhrase, lstOutput}));
 	}
 }
