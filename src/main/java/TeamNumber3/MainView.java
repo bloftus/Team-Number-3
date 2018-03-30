@@ -60,6 +60,20 @@ public class MainView {
 						System.out.println(index.get("name"));
 						System.out.println(index.get("version"));
 						System.out.println(index.get("indexedFiles"));
+						
+						// Testing
+						Map<String, List<Pair>> wordMap = PersistenceData.getWordMap();
+						String word = "apple";
+						if (wordMap.containsKey(word)) {
+							List<Pair> Pairs = wordMap.get(word);
+							for(int i = 0; i < Pairs.size(); i++) {
+								Pair p = Pairs.get(i);
+								System.out.println(word + " is located at " + 
+										p.getPositionNum() + " in file " + p.getFileNum() );
+							}
+						}
+						else
+							System.out.println("\"" + word + "\" is not indexed");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

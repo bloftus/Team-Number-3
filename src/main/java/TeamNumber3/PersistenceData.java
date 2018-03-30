@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
@@ -23,7 +24,7 @@ class PersistenceData {
 	private static JSONArray dataFiles = null;
 	private static JSONArray dataWords = null;
 	private static List<persistenceFile> listOfFiles = new ArrayList<>();
-	private static Map<String, List<Pair>> wordMap;
+	private static Map<String, List<Pair>> wordMap = new HashMap<String, List<Pair>>();
 	
 	public static List<persistenceFile> getListOfFiles() {
 		return listOfFiles;
@@ -111,7 +112,7 @@ class PersistenceData {
 	}
 	
 	static void readIndexFromFile () {
-		// Checking if a file already exists in the index
+		// Getting the files from the index file
 		if (getFiles() != null) {
 			// Looping through the dataFiles list
 			for(int i = 0; i < dataFiles.size(); i++) {
@@ -125,6 +126,48 @@ class PersistenceData {
 				addToListOfFiles(pf);
 			}
 		}
+		// Getting the words from the index file
+		if (getWords() != null) {
+			// Iterating through the "words" JSONArray
+			for(int i = 0; i < dataWords.size(); i++) {
+				JSONObject word = (JSONObject) dataWords.get(i);
+				String wordName = (String) word.get("word");
+				JSONArray wordFiles = (JSONArray) word.get("location");
+				// Iterating through the "location" JSONArray
+				for(int ii = 0; ii < wordFiles.size(); ii++) {
+					JSONObject wordFile = (JSONObject) wordFiles.get(ii);
+					long wordFileNum = (long) wordFile.get("file");
+					JSONArray wordPositions = (JSONArray) wordFile.get("location");
+					// Iterating through the inner "location" JSONArray
+					for(int iii = 0; iii < wordPositions.size(); iii++) {
+						long wordPosition = (long) wordPositions.get(iii);
+						// Making a new pair for the word's position in the file
+						Pair p = new Pair((int) wordFileNum, (int) wordPosition);
+						List<Pair> wordList = getWordList(wordName);
+						wordList.add(p);
+						wordMap.put(wordName, wordList);
+					}
+				}
+			}
+		}
+	}
+	
+	public static List<Pair> getWordList(String word) {
+		// Initializing wordList to null
+		List<Pair> wordList = null;
+		// Checking if the word is already indexed in other positions
+		try {
+			if (wordMap.containsKey(word)) 
+				// Getting the ArrayList for the word if it's already indexed
+				wordList = wordMap.get(word);
+			else
+				// Creating a new ArrayList for the word if it's not already indexed
+				wordList = new ArrayList<>();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// Returning the list of pairs
+		return wordList;
 	}
 	
 	public static void indexNewFile(String filePath, int fileNumber) {
@@ -145,13 +188,8 @@ class PersistenceData {
 				String word = scanner2.next();
 				// Making a new pair for the word's position in the file
 				Pair p = new Pair(fileNumber, wordPosition);
-				List<Pair> wordList = new ArrayList<>();
-				// Checking if the word is already indexed in other positions
-				try {
-					wordList = wordMap.get(word);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				// Getting the word list
+				List<Pair> wordList = getWordList(word);
 				// Adding the word to the index
 				wordList.add(p);
 				wordMap.put(word, wordList);
