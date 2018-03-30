@@ -40,6 +40,7 @@ public class IndexSearch {
 				//File found!
 				for(Pair wordLoc : wordMap.get(word)) {
 					foundFiles.add(wordLoc.getFileNum());
+					System.out.println(userInput + " was found in file " + wordLoc.getFileNum() + "!");
 				}
 			}
 		}
@@ -65,6 +66,7 @@ public class IndexSearch {
 					for(Pair wordLoc : wordMap.get(word)) {
 						if(wordLoc.getFileNum() == fileNum) {
 							found = true;
+							System.out.println(userInput + " was found in file " + wordLoc.getFileNum() + "!");
 						}
 					}
 					if(!found) {

@@ -74,6 +74,16 @@ public class MainView {
 						}
 						else
 							System.out.println("\"" + word + "\" is not indexed");
+						
+						// More testing
+						word = "orange";
+						List<Pair> Pairs = PersistenceData.getWordList(word);
+						for(int i = 0; i < Pairs.size(); i++) {
+							// Nothing happens if the word isn't indexed (the size of Pairs would be 0)
+							Pair p = Pairs.get(i);
+							System.out.println(word + " is located at " + 
+									p.getPositionNum() + " in file " + p.getFileNum() );
+						}
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -150,18 +160,19 @@ public class MainView {
 		JList lstOutput = new JList();
 		lstOutput.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		
-		JRadioButton rdbtnOr = new JRadioButton("OR");
+		rdbtnOr = new JRadioButton("OR");
 		rdbtnOr.setMnemonic(KeyEvent.VK_O);
 		buttonGroup.add(rdbtnOr);
 		rdbtnOr.setSelected(true);
 		
-		JRadioButton rdbtnAnd = new JRadioButton("AND");
+		rdbtnAnd = new JRadioButton("AND");
 		rdbtnAnd.setMnemonic(KeyEvent.VK_A);
 		buttonGroup.add(rdbtnAnd);
 		
-		JRadioButton rdbtnPhrase = new JRadioButton("PHRASE");
+		rdbtnPhrase = new JRadioButton("PHRASE");
 		rdbtnPhrase.setMnemonic(KeyEvent.VK_P);
 		buttonGroup.add(rdbtnPhrase);
+		
 		GroupLayout groupLayout = new GroupLayout(frmFileSearchSystem.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
