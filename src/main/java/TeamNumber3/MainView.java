@@ -46,9 +46,9 @@ public class MainView {
     private JRadioButton rdbtnPhrase;
     private JList lstOutput;
     private Map<String, List<Pair>> wordMap = PersistenceData.getWordMap();
-    private JTable tblOutput;
+    private JTable tblOutput = new JTable(new DefaultTableModel(new Object[] {"File Name"}, 0));
     private DefaultTableModel tblData = (DefaultTableModel) tblOutput.getModel();
-	// AdminView window2 = new AdminView();
+	AdminView window2 = new AdminView();
 
 	/**
 	 * Launch the application.
@@ -151,7 +151,7 @@ public class MainView {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							AdminView window2 = new AdminView();
+							//AdminView window2 = new AdminView();
 							window2.frmFileSearchSystem.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -183,7 +183,7 @@ public class MainView {
 		rdbtnPhrase.setMnemonic(KeyEvent.VK_P);
 		buttonGroup.add(rdbtnPhrase);
 		
-		tblOutput = new JTable();
+		
 		tblOutput.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		tblOutput.getColumnModel().getColumn(0).setPreferredWidth(125);
 		tblOutput.setBounds(10, 42, 412, 291);
