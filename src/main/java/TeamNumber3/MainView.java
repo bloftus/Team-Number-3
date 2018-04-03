@@ -16,9 +16,12 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,6 +34,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JTable;
 
 public class MainView {
 
@@ -40,7 +44,10 @@ public class MainView {
     private JRadioButton rdbtnOr;
     private JRadioButton rdbtnAnd;
     private JRadioButton rdbtnPhrase;
+    private JList lstOutput;
     private Map<String, List<Pair>> wordMap = PersistenceData.getWordMap();
+    private JTable tblOutput;
+    private DefaultTableModel tblData = (DefaultTableModel) tblOutput.getModel();
 	// AdminView window2 = new AdminView();
 
 	/**
@@ -121,13 +128,17 @@ public class MainView {
 		btnSearch.setMnemonic(KeyEvent.VK_S);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				Set<Integer> foundFiles = new HashSet<>();
 				if(rdbtnOr.isSelected()) {
-					Set<Integer> foundFiles = IndexSearch.orSearch(txtSearchBar.getText(), wordMap);
+					foundFiles = IndexSearch.orSearch(txtSearchBar.getText(), wordMap);
 				} else if(rdbtnAnd.isSelected()) {
-					Set<Integer> foundFiles = IndexSearch.andSearch(txtSearchBar.getText(), wordMap);
+					foundFiles = IndexSearch.andSearch(txtSearchBar.getText(), wordMap);
 				} else if(rdbtnPhrase.isSelected() ) {
-					Set<Integer> foundFiles = IndexSearch.phraseSearch(txtSearchBar.getText(), wordMap);
+					foundFiles = IndexSearch.phraseSearch(txtSearchBar.getText(), wordMap);
+				}
+				for(Integer fileNum : foundFiles) {
+					Object[] row = {fileNum};
+					tblData.addRow(row);
 				}
 			}
 		});
@@ -159,9 +170,6 @@ public class MainView {
 			}
 		});
 		
-		JList lstOutput = new JList();
-		lstOutput.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		
 		rdbtnOr = new JRadioButton("OR");
 		rdbtnOr.setMnemonic(KeyEvent.VK_O);
 		buttonGroup.add(rdbtnOr);
@@ -175,26 +183,31 @@ public class MainView {
 		rdbtnPhrase.setMnemonic(KeyEvent.VK_P);
 		buttonGroup.add(rdbtnPhrase);
 		
+		tblOutput = new JTable();
+		tblOutput.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		tblOutput.getColumnModel().getColumn(0).setPreferredWidth(125);
+		tblOutput.setBounds(10, 42, 412, 291);
+		
 		GroupLayout groupLayout = new GroupLayout(frmFileSearchSystem.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(tblOutput, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addComponent(rdbtnOr)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(rdbtnAnd)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(rdbtnPhrase))
-						.addComponent(lstOutput, GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addComponent(btnMaintenance)
 							.addPreferredGap(ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
 							.addComponent(lblSearch)
 							.addGap(143)
 							.addComponent(btnAbout))
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addComponent(txtSearchBar, GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
 							.addGap(22)
 							.addComponent(btnSearch)))
@@ -218,11 +231,11 @@ public class MainView {
 						.addComponent(rdbtnOr)
 						.addComponent(rdbtnAnd)
 						.addComponent(rdbtnPhrase))
-					.addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-					.addComponent(lstOutput, GroupLayout.PREFERRED_SIZE, 288, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(tblOutput, GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		frmFileSearchSystem.getContentPane().setLayout(groupLayout);
-		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnMaintenance, btnAbout, txtSearchBar, btnSearch, rdbtnOr, rdbtnAnd, rdbtnPhrase, lstOutput}));
+		frmFileSearchSystem.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnMaintenance, btnAbout, txtSearchBar, btnSearch, rdbtnOr, rdbtnAnd, rdbtnPhrase}));
 	}
 }
