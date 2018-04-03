@@ -16,6 +16,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.util.List;
+import java.util.prefs.Preferences;
+
 import javax.swing.SwingUtilities;
 import javax.swing.table.*;
 import javax.swing.filechooser.*;
@@ -35,7 +37,7 @@ public class AdminView {
 	private JTable tblFiles = new JTable(new DefaultTableModel(new Object[] {"File Name", "Location"}, 0));
 	private DefaultTableModel tblData = (DefaultTableModel) tblFiles.getModel();
 	private JLabel lblNumberOfFiles;
-
+	
 	/**
 	 * Create the application.
 	 */
@@ -54,7 +56,7 @@ public class AdminView {
 		frmFileSearchSystem.setTitle("File Search System");
 		frmFileSearchSystem.setResizable(false);
 		frmFileSearchSystem.getContentPane().setBackground(UIManager.getColor("Button.background"));
-		frmFileSearchSystem.setBounds(100, 100, 448, 448);
+		frmFileSearchSystem.setBounds(600, 300, 448, 448);
 		frmFileSearchSystem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmFileSearchSystem.getContentPane().setLayout(null);
 		
@@ -148,6 +150,10 @@ public class AdminView {
 		btnResetWindows.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Method to be added when btnResetWindows is clicked.
+				//AdminView.prefs.getInt("Xpos", -1);
+				//AdminView.prefs.getInt("Ypos", -1);
+				frmFileSearchSystem.setBounds(600, 300, 448, 448);
+				MainView.frmFileSearchSystem.setBounds(500, 300, 598, 442);
 			}
 		});
 		btnResetWindows.setBounds(25, 378, 140, 23);
@@ -157,7 +163,7 @@ public class AdminView {
 		lblNumberOfFiles.setBounds(175, 382, 186, 14);
 		frmFileSearchSystem.getContentPane().add(lblNumberOfFiles);
 		
-		JLabel lblVersion = new JLabel("version 0.2");
+		JLabel lblVersion = new JLabel("version 0.3");
 		lblVersion.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVersion.setBounds(365, 406, 75, 14);
 		frmFileSearchSystem.getContentPane().add(lblVersion);

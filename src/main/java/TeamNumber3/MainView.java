@@ -38,7 +38,7 @@ import javax.swing.JTable;
 
 public class MainView {
 
-	private JFrame frmFileSearchSystem;
+	static JFrame frmFileSearchSystem;
 	private JTextField txtSearchBar;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
     private JRadioButton rdbtnOr;
@@ -114,7 +114,7 @@ public class MainView {
 		frmFileSearchSystem = new JFrame();
 		frmFileSearchSystem.setResizable(false);
 		frmFileSearchSystem.setTitle("File Search System");
-		frmFileSearchSystem.setBounds(100, 100, 598, 442);
+		frmFileSearchSystem.setBounds(500, 300, 598, 442);
 		frmFileSearchSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblSearch = new JLabel("File Search System");
@@ -129,6 +129,7 @@ public class MainView {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Set<Integer> foundFiles = new HashSet<>();
+				//Object[] row = {foundFiles};
 				if(rdbtnOr.isSelected()) {
 					foundFiles = IndexSearch.orSearch(txtSearchBar.getText(), wordMap);
 				} else if(rdbtnAnd.isSelected()) {
