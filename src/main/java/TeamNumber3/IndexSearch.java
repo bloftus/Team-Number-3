@@ -29,7 +29,7 @@ public class IndexSearch {
 		
 	} */
 	
-	public static void orSearch(String userInput, Map<String, List<Pair>> wordMap) {
+	public static Set<Integer> orSearch(String userInput, Map<String, List<Pair>> wordMap) {
 		
 		String[ ] words = userInput.split(" ");
 		
@@ -45,14 +45,15 @@ public class IndexSearch {
 			}
 		}
 		
-		if(foundFiles.size() == 0) {
+		//if(foundFiles.size() == 0) {
 			// display no files found to the user in some way...
-		} else {
+		//} else {
 			// display the files in the foundFiles array to the user in some way...
-		}
+		//}
+		return foundFiles;
 	}
 	
-	public static void andSearch(String userInput, Map<String, List<Pair>> wordMap) {
+	public static Set<Integer> andSearch(String userInput, Map<String, List<Pair>> wordMap) {
 		
 		String[ ] words = userInput.split(" ");
 		
@@ -80,14 +81,15 @@ public class IndexSearch {
 			}
 		}
 		
-		if(foundFiles.size() == 0) {
+		//if(foundFiles.size() == 0) {
 			// display no files found to the user in some way...
-		} else {
+		//} else {
 			// display the files in the foundFiles array to the user in some way...
-		}
+		//}
+		return foundFiles;
 	}
 	
-	public static void phraseSearch(String userInput, Map<String, List<Pair>> wordMap) {
+	public static Set<Integer> phraseSearch(String userInput, Map<String, List<Pair>> wordMap) {
 		
 		String[ ] words = userInput.split(" ");
 		
@@ -121,11 +123,17 @@ public class IndexSearch {
 			}
 		}
 		
-		if(newPossibleSets.size() == 0) {
+		//if(newPossibleSets.size() == 0) {
 			// display no files found to the user in some way...
-		} else {
+		//} else {
 			// display the files in the foundFiles array to the user in some way...
+		//}
+		Set<Integer> foundFiles = new HashSet<>();
+		for( Pair foundPair : newPossibleSets) {
+			if (!foundFiles.contains(foundPair.getFileNum()))
+				foundFiles.add(foundPair.getFileNum());
 		}
+		return foundFiles;
 	}
 }
  

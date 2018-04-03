@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
@@ -120,12 +121,13 @@ public class MainView {
 		btnSearch.setMnemonic(KeyEvent.VK_S);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				if(rdbtnOr.isSelected()) {
-					IndexSearch.orSearch(txtSearchBar.getText(), wordMap);
+					Set<Integer> foundFiles = IndexSearch.orSearch(txtSearchBar.getText(), wordMap);
 				} else if(rdbtnAnd.isSelected()) {
-					IndexSearch.andSearch(txtSearchBar.getText(), wordMap);
+					Set<Integer> foundFiles = IndexSearch.andSearch(txtSearchBar.getText(), wordMap);
 				} else if(rdbtnPhrase.isSelected() ) {
-					IndexSearch.phraseSearch(txtSearchBar.getText(), wordMap);
+					Set<Integer> foundFiles = IndexSearch.phraseSearch(txtSearchBar.getText(), wordMap);
 				}
 			}
 		});
