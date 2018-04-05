@@ -2,6 +2,7 @@
 
 package TeamNumber3;
 
+import java.lang.ref.Cleaner.Cleanable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -31,7 +32,7 @@ public class IndexSearch {
 	
 	public static Set<Integer> orSearch(String userInput, Map<String, List<Pair>> wordMap) {
 		
-		String[ ] words = userInput.split(" ");
+		String[ ] words = cleanInput(userInput).split(" ");
 		
 		Set<Integer> foundFiles = new HashSet<>();
 		
@@ -55,7 +56,7 @@ public class IndexSearch {
 	
 	public static Set<Integer> andSearch(String userInput, Map<String, List<Pair>> wordMap) {
 		
-		String[ ] words = userInput.split(" ");
+		String[ ] words = cleanInput(userInput).split(" ");
 		
 		Set<Integer> foundFiles = new HashSet<>(Arrays.asList(1, 2, 3, 4));
 		
@@ -91,7 +92,7 @@ public class IndexSearch {
 	
 	public static Set<Integer> phraseSearch(String userInput, Map<String, List<Pair>> wordMap) {
 		
-		String[ ] words = userInput.split(" ");
+		String[ ] words = cleanInput(userInput).split(" ");
 		
 		Set<Pair> newPossibleSets = new HashSet<>();
 		
@@ -134,6 +135,15 @@ public class IndexSearch {
 				foundFiles.add(foundPair.getFileNum());
 		}
 		return foundFiles;
+	}
+	
+	private static String cleanInput(String userInput) {
+		String result = "";
+		
+		result = userInput.toLowerCase();
+		result = userInput.replaceAll("[^A-Za-z ]", "");
+		
+		return result;
 	}
 }
  
